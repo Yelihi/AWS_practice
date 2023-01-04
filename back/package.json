@@ -4,7 +4,8 @@
   "description": "노드버드 백엔드",
   "main": "app.js",
   "scripts": {
-    "dev": "nodemon app"
+    "dev": "nodemon app",
+    "start": "node app"
   },
   "author": "wonik",
   "license": "ISC",
