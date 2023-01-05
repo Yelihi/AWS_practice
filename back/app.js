@@ -69,6 +69,6 @@ app.use("/hashtag", hashtagRouter);
 // 직접 에러를 특별하게 처리하고 싶다면
 // app.use((err, req, res, next) => {})
 
-app.listen(3065, () => {
+app.listen(80, () => {
   console.log("서버 실행 중!");
 });
