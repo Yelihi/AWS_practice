@@ -5,6 +5,8 @@ const cookieParser = require("cookie-parser");
 const dotenv = require("dotenv");
 const morgan = require("morgan");
 const path = require("path");
+const hpp = require("hpp");
+const helmet = require("helmet");
 
 const postRouter = require("./routes/post"); // 게시글 하나 작성, 댓글 하나 작성, 하나 지우기 등 단수
 const userRouter = require("./routes/user");
@@ -20,6 +22,13 @@ const app = express();
 dotenv.config();
 passportConfig();
 
+if (process.env.NODE_ENV === "production") {
+  app.use(morgan("combined")); // 배포
+  app.use(hpp());
+  app.use(helmet());
+} else {
+  app.use(morgan("dev")); // 개발
+}
 db.sequelize
   .sync()
   .then(() => {
@@ -27,11 +36,10 @@ db.sequelize
   })
   .catch(console.error);
 
-app.use(morgan("dev"));
 // 밑 메서드 및 라우터 위에 이거 적어주자.
 app.use(
   cors({
-    origin: true,
+    origin: [true, "nodetwitter.com"],
     credentials: true, // 쿠키를 서버에 전달하기 위해서 꼭 필요하다.
   })
 );
