@@ -2,17 +2,11 @@ import React, { useRef, useCallback, useState, useEffect } from "react";
 import { Form, Input, Button } from "antd";
 import { useDispatch, useSelector } from "react-redux";
 
-import {
-  addPost,
-  UPLOAD_IMAGES_REQUEST,
-  REMOVE_IMAGE,
-  ADD_POST_REQUEST,
-} from "../reducers/post";
+import { addPost, UPLOAD_IMAGES_REQUEST, REMOVE_IMAGE, ADD_POST_REQUEST } from "../reducers/post";
+import { backUrl } from "../config/config";
 
 const PostForm = () => {
-  const { imagePaths, addPostDone, addPostLoading } = useSelector(
-    (state) => state.post
-  );
+  const { imagePaths, addPostDone, addPostLoading } = useSelector((state) => state.post);
   const [text, setText] = useState("");
   const dispatch = useDispatch();
   const imageInput = useRef();
@@ -71,33 +65,12 @@ const PostForm = () => {
   );
 
   return (
-    <Form
-      style={{ margin: "10px 0 20px" }}
-      encType="multipart/form-data"
-      onFinish={onSubmit}
-    >
-      <Input.TextArea
-        value={text}
-        onChange={onChangeText}
-        maxLength={140}
-        placeholder="어떤 신기한 일이 있었나요?"
-      />
+    <Form style={{ margin: "10px 0 20px" }} encType="multipart/form-data" onFinish={onSubmit}>
+      <Input.TextArea value={text} onChange={onChangeText} maxLength={140} placeholder="어떤 신기한 일이 있었나요?" />
       <div>
-        <input
-          type="file"
-          name="image"
-          multiple
-          hidden
-          ref={imageInput}
-          onChange={onChangeImages}
-        />
+        <input type="file" name="image" multiple hidden ref={imageInput} onChange={onChangeImages} />
         <Button onClick={onClickImageUpload}>이미지 업로드</Button>
-        <Button
-          type="primary"
-          style={{ float: "right" }}
-          htmlType="submit"
-          loading={addPostLoading}
-        >
+        <Button type="primary" style={{ float: "right" }} htmlType="submit" loading={addPostLoading}>
           짹짹
         </Button>
       </div>
@@ -105,11 +78,7 @@ const PostForm = () => {
         {imagePaths.map((v, i) => {
           return (
             <div key={v} style={{ display: "inline-block" }}>
-              <img
-                src={"http://localhost:3065/" + v}
-                style={{ width: "200px" }}
-                alt={v}
-              />
+              <img src={backUrl + v} style={{ width: "200px" }} alt={v} />
               <div>
                 <Button onClick={onRemoveImage(i)}>제거</Button>
               </div>
