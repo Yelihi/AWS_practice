@@ -39,7 +39,7 @@ db.sequelize
 // 밑 메서드 및 라우터 위에 이거 적어주자.
 app.use(
   cors({
-    origin: [true, "nodetwitter.com"],
+    origin: [true, "nodetwitter.com", "http://3.34.131.155/"],
     credentials: true, // 쿠키를 서버에 전달하기 위해서 꼭 필요하다.
   })
 );
